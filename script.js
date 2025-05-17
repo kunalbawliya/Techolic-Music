@@ -11,6 +11,14 @@ const songs = [
   { name: "Dil Haaraa", src: "songs/Dil Haaraa.mp3", cover: "covers/Dil Haaraa.png" },
   { name: "Jugraafiya", src: "songs/Jugraafiya.mp3", cover: "covers/Jugraafiya.png" },
   { name: "O Rangrez", src: "songs/O Rangrez.mp3", cover: "covers/O Rangrez.png" },
+  { name: "Bin Tere - I Hate Luv Story", src: "songs/Bin Tere - I Hate Luv Story.mp3", cover: "covers/Bin Tere - I Hate Luv Story.png" },
+  { name: "Bin Tere Bin", src: "songs/Bin Tere Bin.mp3", cover: "covers/Bin Tere Bin.png" },
+  { name: "Bin Tere", src: "songs/Bin Tere.mp3", cover: "covers/Bin Tere.png" },
+  { name: "Tere Bina - Haseena Parkar", src: "songs/Tere Bina - Haseena Parkar.mp3", cover: "covers/Tere Bina - Haseena Parkar.png" },
+  { name: "Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke", src: "songs/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.mp3", cover: "covers/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.png" },
+  { name: "Tere Bina - Shorgul", src: "songs/Tere Bina - Shorgul.mp3", cover: "covers/Tere Bina - Shorgul.png" },
+  { name: "Tere Bina", src: "songs/Tere Bina.mp3", cover: "covers/Tere Bina.png" },
+  { name: "Tera Hone Laga Hoon", src: "songs/Tera Hone Laga Hoon.mp3", cover: "covers/Tera Hone Laga Hoon.png" },
 ];
 
 let currentSong = 0, playlists = {}, currentPlaylist = [], repeatMode = "none";
