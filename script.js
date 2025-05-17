@@ -6,6 +6,11 @@ const songs = [
   { name: "Sooraj Hi Chhaon Banke", src: "songs/Sooraj Hi Chhaon banke.mp3", cover: "covers/Sooraj Hi Chhaon banke.png" },
   { name: "Team India Hain Hum", src: "songs/Team India Hain Hum.mp3", cover: "covers/Team India Hain Hum.png" },
   { name: "Tu Hai Champion", src: "songs/Tu Hai Champion.mp3", cover: "covers/Tu Hai Champion.png" },
+  { name: "Bulleya", src: "songs/Bulleya.mp3", cover: "covers/Bulleya.png" },
+  { name: "Ajab Si", src: "songs/Ajab Si.mp3", cover: "covers/Ajab Si.png" },
+  { name: "Dil Haaraa", src: "songs/Dil Haaraa.mp3", cover: "covers/Dil Haaraa.png" },
+  { name: "Jugraafiya", src: "songs/Jugraafiya.mp3", cover: "covers/Jugraafiya.png" },
+  { name: "O Rangrez", src: "songs/O Rangrez.mp3", cover: "covers/O Rangrez.png" },
 ];
 
 let currentSong = 0, playlists = {}, currentPlaylist = [], repeatMode = "none";
