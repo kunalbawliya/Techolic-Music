@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Techolic Music</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar glitch">
+    <h1 class="logo">Techolic Music</h1>
+    <input type="text" id="searchBar" placeholder="Search songs..." />
+  </nav>
+
+  <!-- Create Playlist -->
+  <div class="create-playlist">
+    <input type="text" id="playlistName" placeholder="Enter playlist name">
+    <button onclick="createPlaylist()">Create Playlist</button>
+  </div>
+
+  <!-- Playlists -->
+  <section class="playlist" id="songCards">
+    <!-- Songs injected here by JS -->
+  </section>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button onclick="prevSong()">⏮</button>
+    <button id="playPauseBtn" onclick="togglePlay()">▶</button>
+    <button onclick="nextSong()">⏭</button>
+    <label>Repeat:
+      <select id="repeatMode" onchange="updateRepeatMode()">
+        <option value="none">None</option>
+        <option value="one">Repeat One</option>
+        <option value="all">Repeat All</option>
+      </select>
+    </label>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+  </div>
+
+  <!-- Audio & Visualizer -->
+  <audio id="audioPlayer"></audio>
+  <canvas id="visualizer"></canvas>
+
+  <!-- Playlist Display -->
+  <div class="playlist-section">
+    <h2>Your Playlists</h2>
+    <div id="userPlaylists"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
