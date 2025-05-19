@@ -26,6 +26,7 @@ const audio = document.getElementById("audioPlayer");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const volumeControl = document.getElementById("volume");
 const songCards = document.getElementById("songCards");
+const coverDisc = document.getElementById("coverDisc");
 
 songs.forEach((song, i) => {
   const card = document.createElement("div");
@@ -46,16 +47,7 @@ function formatTime(sec) {
 function loadSong(index) {
   audio.src = songs[index].src;
   audio.load();
-}
-
-function togglePlay() {
-  if (audio.paused) {
-    audio.play();
-    playPauseBtn.textContent = "⏸";
-  } else {
-    audio.pause();
-    playPauseBtn.textContent = "▶";
-  }
+  coverDisc.src = songs[index].cover;
 }
 
 function playSong(index) {
@@ -63,7 +55,21 @@ function playSong(index) {
   loadSong(index);
   audio.play();
   playPauseBtn.textContent = "⏸";
+  coverDisc.classList.add("playing");
 }
+
+playPauseBtn.onclick = () => {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = "⏸";
+    coverDisc.classList.add("playing");
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = "▶";
+    coverDisc.classList.remove("playing");
+  }
+};
+
 
 function nextSong() {
   if (repeatMode === "one") {
@@ -84,7 +90,9 @@ function prevSong() {
   playSong(currentSong);
 }
 
-volumeControl.oninput = () => (audio.volume = volumeControl.value);
+volumeControl.oninput = () => {
+  audio.volume = parseFloat(volumeControl.value);
+};
 
 audio.ontimeupdate = () => {
   const progress = (audio.currentTime / audio.duration) * 100;
@@ -94,6 +102,14 @@ audio.ontimeupdate = () => {
 };
 
 audio.onended = () => nextSong();
+audio.onpause = () => coverDisc.classList.remove("playing");
+audio.onplay = () => {
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+  drawBars();
+  coverDisc.classList.add("playing");
+};
 
 function createPlaylist() {
   const name = document.getElementById("playlistName").value.trim();
@@ -108,8 +124,7 @@ function renderPlaylists() {
   for (let name in playlists) {
     const div = document.createElement("div");
     div.innerHTML = `<h3>${name}</h3><ul>${playlists[name]
-      .map(s => `<li>${s}</li>`)
-      .join("")}</ul>`;
+      .map(s => `<li>${s}</li>`).join("")}</ul>`;
     container.appendChild(div);
   }
 }
@@ -125,7 +140,7 @@ function updateRepeatMode() {
   repeatMode = document.getElementById("repeatMode").value;
 }
 
-// 🎵 Simple Visualizer
+// 🎵 Visualizer
 const visualizer = document.getElementById("visualizer");
 const ctx = visualizer.getContext("2d");
 visualizer.width = window.innerWidth;
@@ -152,9 +167,8 @@ function drawBars() {
     x += barWidth + 1;
   }
 }
-audio.onplay = () => audioCtx.resume().then(drawBars);
 
-// 🔴 Particle Animation (bubbles)
+// 🔴 Particle Animation
 const particles = document.getElementById("particles");
 const pctx = particles.getContext("2d");
 particles.width = window.innerWidth;
