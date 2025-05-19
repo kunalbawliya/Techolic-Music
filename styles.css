@@ -89,6 +89,7 @@ canvas#particles, canvas#visualizer {
   background: #0ff;
   width: 0%;
 }
+
 .player-bar {
   display: flex;
   align-items: center;
@@ -99,6 +100,8 @@ canvas#particles, canvas#visualizer {
   position: sticky;
   bottom: 0;
   width: 100%;
+  box-shadow: 0 -2px 10px #0ff;
+  flex-wrap: wrap;
   z-index: 10;
 }
 
@@ -122,13 +125,11 @@ canvas#particles, canvas#visualizer {
   animation: spin 3s linear infinite;
   animation-play-state: paused;
   object-fit: cover;
-  display: block;
+  pointer-events: none;
 }
-
 .rotating-cover.playing {
   animation-play-state: running;
 }
-
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -165,6 +166,11 @@ canvas#particles, canvas#visualizer {
   color: #f0f;
   transform: scale(1.2);
 }
+#volume {
+  height: 30px;
+  min-width: 100px;
+  max-width: 200px;
+}
 .playlist-section {
   padding: 2rem;
   padding-bottom: 120px;
@@ -179,4 +185,49 @@ canvas#particles, canvas#visualizer {
   padding: 1rem;
   border: 1px dashed #0ff;
   border-radius: 10px;
+}
+
+/* ✅ Mobile/Tablet responsive */
+@media (max-width: 768px) {
+  .player-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .rotating-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+  .overlay-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+  .player-bar button {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+  #volume {
+    width: 80%;
+  }
+}
+@media (max-width: 480px) {
+  .player-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .rotating-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  .overlay-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+  .player-bar button {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
 }
