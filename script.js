@@ -21,6 +21,7 @@ const songs = [
   { name: "Bin Tere Bin", src: "songs/Bin Tere Bin.mp3", cover: "covers/Bin Tere Bin.png" },
 ];
 
+let lastTap = 0;
 let currentSong = 0, playlists = {}, currentPlaylist = [], repeatMode = "none";
 const audio = document.getElementById("audioPlayer");
 const playPauseBtn = document.getElementById("playPauseBtn");
@@ -167,6 +168,37 @@ function drawBars() {
     x += barWidth + 1;
   }
 }
+// 🎶 Cover Disc Animation
+let tapTimer = null;
+let tappedOnce = false;
+
+coverDisc.addEventListener("touchstart", function (e) {
+  e.preventDefault(); // 🔒 prevent zoom or double tap behavior
+
+  if (!tappedOnce) {
+    tappedOnce = true;
+
+    tapTimer = setTimeout(() => {
+      tappedOnce = false;
+    }, 300); // ⏱ 300ms window for 2nd tap
+
+  } else {
+    clearTimeout(tapTimer);
+    tappedOnce = false;
+
+    // ✅ Double-tap confirmed
+    if (audio.paused) {
+      audio.play();
+      playPauseBtn.textContent = "⏸";
+      coverDisc.classList.add("playing");
+    } else {
+      audio.pause();
+      playPauseBtn.textContent = "▶";
+      coverDisc.classList.remove("playing");
+    }
+  }
+}, { passive: false }); // ❗ required to allow preventDefault
+
 
 // 🔴 Particle Animation
 const particles = document.getElementById("particles");
