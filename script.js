@@ -1,3 +1,8 @@
+document.getElementById("menuToggle").onclick = function () {
+  const menu = document.getElementById("hiddenMenu");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+};
+
 const songs = [
   { name: "Sajni", src: "songs/Sajni.mp3", cover: "covers/Sajni.png" },
   { name: "Faded", src: "songs/Faded.mp3", cover: "covers/Faded.png" },
@@ -21,13 +26,11 @@ const songs = [
   { name: "Bin Tere Bin", src: "songs/Bin Tere Bin.mp3", cover: "covers/Bin Tere Bin.png" },
 ];
 
-let lastTap = 0;
 let currentSong = 0, playlists = {}, currentPlaylist = [], repeatMode = "none";
 const audio = document.getElementById("audioPlayer");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const volumeControl = document.getElementById("volume");
 const songCards = document.getElementById("songCards");
-const coverDisc = document.getElementById("coverDisc");
 
 songs.forEach((song, i) => {
   const card = document.createElement("div");
@@ -48,7 +51,16 @@ function formatTime(sec) {
 function loadSong(index) {
   audio.src = songs[index].src;
   audio.load();
-  coverDisc.src = songs[index].cover;
+}
+
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = "⏸";
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = "▶";
+  }
 }
 
 function playSong(index) {
@@ -56,21 +68,7 @@ function playSong(index) {
   loadSong(index);
   audio.play();
   playPauseBtn.textContent = "⏸";
-  coverDisc.classList.add("playing");
 }
-
-playPauseBtn.onclick = () => {
-  if (audio.paused) {
-    audio.play();
-    playPauseBtn.textContent = "⏸";
-    coverDisc.classList.add("playing");
-  } else {
-    audio.pause();
-    playPauseBtn.textContent = "▶";
-    coverDisc.classList.remove("playing");
-  }
-};
-
 
 function nextSong() {
   if (repeatMode === "one") {
@@ -91,9 +89,7 @@ function prevSong() {
   playSong(currentSong);
 }
 
-volumeControl.oninput = () => {
-  audio.volume = parseFloat(volumeControl.value);
-};
+volumeControl.oninput = () => (audio.volume = volumeControl.value);
 
 audio.ontimeupdate = () => {
   const progress = (audio.currentTime / audio.duration) * 100;
@@ -103,14 +99,6 @@ audio.ontimeupdate = () => {
 };
 
 audio.onended = () => nextSong();
-audio.onpause = () => coverDisc.classList.remove("playing");
-audio.onplay = () => {
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
-  drawBars();
-  coverDisc.classList.add("playing");
-};
 
 function createPlaylist() {
   const name = document.getElementById("playlistName").value.trim();
@@ -125,7 +113,8 @@ function renderPlaylists() {
   for (let name in playlists) {
     const div = document.createElement("div");
     div.innerHTML = `<h3>${name}</h3><ul>${playlists[name]
-      .map(s => `<li>${s}</li>`).join("")}</ul>`;
+      .map(s => `<li>${s}</li>`)
+      .join("")}</ul>`;
     container.appendChild(div);
   }
 }
@@ -141,7 +130,7 @@ function updateRepeatMode() {
   repeatMode = document.getElementById("repeatMode").value;
 }
 
-// 🎵 Visualizer
+// 🎵 Simple Visualizer
 const visualizer = document.getElementById("visualizer");
 const ctx = visualizer.getContext("2d");
 visualizer.width = window.innerWidth;
@@ -168,39 +157,9 @@ function drawBars() {
     x += barWidth + 1;
   }
 }
-// 🎶 Cover Disc Animation
-let tapTimer = null;
-let tappedOnce = false;
+audio.onplay = () => audioCtx.resume().then(drawBars);
 
-coverDisc.addEventListener("touchstart", function (e) {
-  e.preventDefault(); // 🔒 prevent zoom or double tap behavior
-
-  if (!tappedOnce) {
-    tappedOnce = true;
-
-    tapTimer = setTimeout(() => {
-      tappedOnce = false;
-    }, 300); // ⏱ 300ms window for 2nd tap
-
-  } else {
-    clearTimeout(tapTimer);
-    tappedOnce = false;
-
-    // ✅ Double-tap confirmed
-    if (audio.paused) {
-      audio.play();
-      playPauseBtn.textContent = "⏸";
-      coverDisc.classList.add("playing");
-    } else {
-      audio.pause();
-      playPauseBtn.textContent = "▶";
-      coverDisc.classList.remove("playing");
-    }
-  }
-}, { passive: false }); // ❗ required to allow preventDefault
-
-
-// 🔴 Particle Animation
+// 🔴 Particle Animation (bubbles)
 const particles = document.getElementById("particles");
 const pctx = particles.getContext("2d");
 particles.width = window.innerWidth;

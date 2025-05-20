@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="="en">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,37 +10,70 @@
 
   <canvas id="particles"></canvas>
 
+    <!-- NAVBAR -->
   <nav class="navbar glitch">
-    <h1 class="logo">Techolic Music</h1>
-    <input type="text" id="searchBar" placeholder="Search songs..." />
+    <div class="nav-left">
+      <div class="logo-wrapper">
+        <img src="logo.png" alt="Techolic Music Logo" class="logo-img" />
+      </div>
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchBar" placeholder="Kya sun na chaoge aap??" />
+      </div>
+    </div>
+    <div class="nav-right desktop-menu">
+      <a href="#">🏠 Home</a>
+      <a href="#">📚 Your Library</a>
+      <a href="#">➕ Create</a>
+      <a href="#">🔐 Sign Up / Login</a>
+    </div>
+    <button id="menuToggle" class="hamburger">☰</button>
+
   </nav>
 
+  <!-- HIDDEN MENU (Mobile) -->
+  <div id="hiddenMenu" class="hidden-menu">
+    <a href="#">🏠 Home</a>
+    <a href="#">📚 Your Library</a>
+    <a href="#">➕ Create</a>
+    <a href="#">🔐 Sign Up / Login</a>
+  </div>
+
+  <!-- Create Playlist
   <div class="create-playlist">
     <input type="text" id="playlistName" placeholder="Enter playlist name">
     <button onclick="createPlaylist()">Create Playlist</button>
+  </div> -->
+
+  <!-- Playlists -->
+  <section class="playlist" id="songCards">
+    <!-- Songs injected here by JS -->
+  </section>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button onclick="prevSong()">⏮</button>
+    <button id="playPauseBtn" onclick="togglePlay()">▶</button>
+    <button onclick="nextSong()">⏭</button>
+    <label>Repeat:
+      <select id="repeatMode" onchange="updateRepeatMode()">
+        <option value="none">None</option>
+        <option value="one">Repeat One</option>
+        <option value="all">Repeat All</option>
+      </select>
+    </label>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
   </div>
 
-  <section class="playlist" id="songCards"></section>
-
+  <!-- Audio & Visualizer -->
   <audio id="audioPlayer"></audio>
   <canvas id="visualizer"></canvas>
 
+  <!-- Playlist Display
   <div class="playlist-section">
     <h2>Your Playlists</h2>
     <div id="userPlaylists"></div>
-  </div>
-
-  <div class="player-bar">
-    <button onclick="prevSong()">⏮</button>
-    <div class="rotating-wrapper">
-      <div class="disc-wrapper">
-        <img id="coverDisc" class="rotating-cover paused" src="covers/Sajni.png" alt="Cover Art" />
-      </div>
-      <button id="playPauseBtn" class="overlay-icon">▶</button>
-    </div>
-    <button onclick="nextSong()">⏭</button>
-    <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
-  </div>
+  </div> -->
 
   <script src="script.js"></script>
 </body>
