@@ -31,9 +31,26 @@ body {
   align-items: center;
   gap: 0.5rem;
   background: #222;
-  padding: 0.3rem 0.5rem;
-  border-radius: 5px;
+  padding: 0.3rem 0.6rem;
+  border-radius: 50px;
+  flex-grow: 1;
+  max-width: 400px;
+  width: 100%;
 }
+@media (max-width: 768px) {
+  .search-wrapper {
+    max-width: 100%;
+  }
+}
+
+.search-wrapper input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  width: 100%;
+}
+
 #searchBar {
   padding: 0.4rem 0.5rem;
   border-radius: 50px;
