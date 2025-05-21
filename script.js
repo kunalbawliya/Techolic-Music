@@ -66,13 +66,13 @@ function playSong(index) {
   currentSong = index;
   loadSong(index);
   audio.play();
-  playPauseBtn.textContent = "⏸";
+  playPauseBtn.textContent = "❚❚";
 }
 
 playPauseBtn.onclick = () => {
   if (audio.paused) {
     audio.play();
-    playPauseBtn.textContent = "⏸";
+    playPauseBtn.textContent = "❚❚";
   } else {
     audio.pause();
     playPauseBtn.textContent = "▶";
