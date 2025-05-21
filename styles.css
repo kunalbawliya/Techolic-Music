@@ -258,8 +258,7 @@ canvas#particles, canvas#visualizer {
   cursor: pointer;
 }
 .control-buttons .play-pause {
-  background: #0ff;
-  color: #000;
+  color: #0ff;
   font-size: 1.5rem;
   border-radius: 50%;
   width: 40px;

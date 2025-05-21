@@ -132,6 +132,7 @@ document.getElementById("searchBar").oninput = function () {
   });
 };
 
+
 // 🎵 Visualizer
 const visualizer = document.getElementById("visualizer");
 const ctx = visualizer.getContext("2d");
