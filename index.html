@@ -20,10 +20,11 @@
         <input type="text" id="searchBar" placeholder="Kya sun na chaoge aap??" />
       </div>
     </div>
+
     <div class="nav-right desktop-menu">
       <a href="#">🏠 Home</a>
       <a href="#">📚 Library</a>
-      <a href="#">➕ Create</a>
+      <a href="#" class="add-request">➕ Add</a>
       <a href="#">🔐 Login</a>
     </div>
     <button id="menuToggle" class="hamburger">☰</button>
@@ -32,7 +33,7 @@
   <div id="hiddenMenu" class="hidden-menu">
     <a href="#">🏠 Home</a>
     <a href="#">📚 Library</a>
-    <a href="#">➕ Create</a>
+    <a href="#" class="add-request">➕ Add</a>
     <a href="#">🔐 Login</a>
   </div>
 
@@ -58,10 +59,12 @@
     </div>
     <div class="player-center">
       <div class="control-buttons">
-        <button onclick="toggleRepeat()" id="repeatBtn">🔁</button>
+        <button onclick="toggleRepeat()" id="repeatBtn">⟲</button>
         <button onclick="prevSong()">⏮</button>
-        <button id="playPauseBtn" class="play-pause">▶</button>
+        <button id="playPauseBtn" class="play-pause">❚❚</button>
         <button onclick="nextSong()">⏭</button>
+        <button onclick="toggleShuffle()" id="shuffleBtn">🔀</button>
+        <button onclick="toggleSpeed()" id="speedBtn">1x</button>
       </div>
     </div>
     <div class="player-right">
@@ -69,6 +72,21 @@
       <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
     </div>
   </div>
+
+  <div id="createPanel" class="create-panel hidden">
+    <div class="panel-header">
+      <h2>📩 Submit Song Request</h2>
+      <button class="close-panel" onclick="togglePanel()">✖</button>
+    </div>
+    <input type="text" id="reqName" placeholder="Naam Kya hai Tumahara??" />
+    <input type="text" id="reqSongName" placeholder="🎵 Konsa Sangeet Chaahte Hain??" />
+    <input type="text" id="reqSongArtist" placeholder="🎤 Sangeet k Rachnakar (optional)" />
+    <textarea id="reqNote" placeholder="📝 Why do you love this song?" rows="3"></textarea>
+    <button onclick="submitSongRequest()">Submit Request</button>
+  </div>
+
+
+
 
   <audio id="audioPlayer"></audio>
   <canvas id="visualizer"></canvas>

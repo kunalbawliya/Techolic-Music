@@ -6,27 +6,84 @@ document.getElementById("menuToggle").onclick = function () {
 const songs = [
   { name: "Sajni", src: "songs/Sajni.mp3", cover: "covers/Sajni.png" },
   { name: "Faded", src: "songs/Faded.mp3", cover: "covers/Faded.png" },
-  { name: "Tere Bina", src: "songs/Tere Bina.mp3", cover: "covers/Tere Bina.png" },
+  {
+    name: "Tere Bina",
+    src: "songs/Tere Bina.mp3",
+    cover: "covers/Tere Bina.png",
+  },
   { name: "Kissik", src: "songs/Kissik.mp3", cover: "covers/Kissik.png" },
-  { name: "Tere Bina - Haseena Parkar", src: "songs/Tere Bina - Haseena Parkar.mp3", cover: "covers/Tere Bina - Haseena Parkar.png" },
-  { name: "On My Way", src: "songs/On My Way.mp3", cover: "covers/On My Way.png" },
-  { name: "Tera Hone Laga Hoon", src: "songs/Tera Hone Laga Hoon.mp3", cover: "covers/Tera Hone Laga Hoon.png" },
-  { name: "Sooraj Hi Chhaon Banke", src: "songs/Sooraj Hi Chhaon banke.mp3", cover: "covers/Sooraj Hi Chhaon banke.png" },
-  { name: "Bin Tere - I Hate Luv Story", src: "songs/Bin Tere - I Hate Luv Story.mp3", cover: "covers/Bin Tere - I Hate Luv Story.png" },
-  { name: "Team India Hain Hum", src: "songs/Team India Hain Hum.mp3", cover: "covers/Team India Hain Hum.png" },
-  { name: "Tu Hai Champion", src: "songs/Tu Hai Champion.mp3", cover: "covers/Tu Hai Champion.png" },
-  { name: "Tere Bina - Shorgul", src: "songs/Tere Bina - Shorgul.mp3", cover: "covers/Tere Bina - Shorgul.png" },
+  {
+    name: "Tere Bina - Haseena Parkar",
+    src: "songs/Tere Bina - Haseena Parkar.mp3",
+    cover: "covers/Tere Bina - Haseena Parkar.png",
+  },
+  {
+    name: "On My Way",
+    src: "songs/On My Way.mp3",
+    cover: "covers/On My Way.png",
+  },
+  {
+    name: "Tera Hone Laga Hoon",
+    src: "songs/Tera Hone Laga Hoon.mp3",
+    cover: "covers/Tera Hone Laga Hoon.png",
+  },
+  {
+    name: "Sooraj Hi Chhaon Banke",
+    src: "songs/Sooraj Hi Chhaon banke.mp3",
+    cover: "covers/Sooraj Hi Chhaon banke.png",
+  },
+  {
+    name: "Bin Tere - I Hate Luv Story",
+    src: "songs/Bin Tere - I Hate Luv Story.mp3",
+    cover: "covers/Bin Tere - I Hate Luv Story.png",
+  },
+  {
+    name: "Team India Hain Hum",
+    src: "songs/Team India Hain Hum.mp3",
+    cover: "covers/Team India Hain Hum.png",
+  },
+  {
+    name: "Tu Hai Champion",
+    src: "songs/Tu Hai Champion.mp3",
+    cover: "covers/Tu Hai Champion.png",
+  },
+  {
+    name: "Tere Bina - Shorgul",
+    src: "songs/Tere Bina - Shorgul.mp3",
+    cover: "covers/Tere Bina - Shorgul.png",
+  },
   { name: "Bulleya", src: "songs/Bulleya.mp3", cover: "covers/Bulleya.png" },
-  { name: "Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke", src: "songs/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.mp3", cover: "covers/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.png" },
+  {
+    name: "Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke",
+    src: "songs/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.mp3",
+    cover: "covers/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.png",
+  },
   { name: "Ajab Si", src: "songs/Ajab Si.mp3", cover: "covers/Ajab Si.png" },
   { name: "Bin Tere", src: "songs/Bin Tere.mp3", cover: "covers/Bin Tere.png" },
-  { name: "Dil Haaraa", src: "songs/Dil Haaraa.mp3", cover: "covers/Dil Haaraa.png" },
-  { name: "Jugraafiya", src: "songs/Jugraafiya.mp3", cover: "covers/Jugraafiya.png" },
-  { name: "O Rangrez", src: "songs/O Rangrez.mp3", cover: "covers/O Rangrez.png" },
-  { name: "Bin Tere Bin", src: "songs/Bin Tere Bin.mp3", cover: "covers/Bin Tere Bin.png" }
+  {
+    name: "Dil Haaraa",
+    src: "songs/Dil Haaraa.mp3",
+    cover: "covers/Dil Haaraa.png",
+  },
+  {
+    name: "Jugraafiya",
+    src: "songs/Jugraafiya.mp3",
+    cover: "covers/Jugraafiya.png",
+  },
+  {
+    name: "O Rangrez",
+    src: "songs/O Rangrez.mp3",
+    cover: "covers/O Rangrez.png",
+  },
+  {
+    name: "Bin Tere Bin",
+    src: "songs/Bin Tere Bin.mp3",
+    cover: "covers/Bin Tere Bin.png",
+  },
 ];
 
-let currentSong = 0, repeatMode = "none";
+let currentSong = 0,
+  repeatMode = "none";
 const audio = document.getElementById("audioPlayer");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const volumeControl = document.getElementById("volume");
@@ -81,7 +138,15 @@ playPauseBtn.onclick = () => {
 
 function nextSong() {
   if (repeatMode === "one") return playSong(currentSong);
-  currentSong = (currentSong + 1) % songs.length;
+  if (isShuffle) {
+    let next;
+    do {
+      next = Math.floor(Math.random() * songs.length);
+    } while (next === currentSong);
+    currentSong = next;
+  } else {
+    currentSong = (currentSong + 1) % songs.length;
+  }
   playSong(currentSong);
 }
 
@@ -113,13 +178,13 @@ seekBar.oninput = () => {
 repeatBtn.onclick = function () {
   if (repeatMode === "none") {
     repeatMode = "all";
-    repeatBtn.textContent = "🔂";
+    repeatBtn.textContent = "⟲1";
   } else if (repeatMode === "all") {
     repeatMode = "one";
-    repeatBtn.textContent = "🔁";
+    repeatBtn.textContent = "⟲";
   } else {
     repeatMode = "none";
-    repeatBtn.textContent = "🔁";
+    repeatBtn.textContent = "⟲";
   }
 };
 
@@ -127,11 +192,12 @@ audio.onended = () => nextSong();
 
 document.getElementById("searchBar").oninput = function () {
   const val = this.value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card => {
-    card.style.display = card.textContent.toLowerCase().includes(val) ? "block" : "none";
+  document.querySelectorAll(".card").forEach((card) => {
+    card.style.display = card.textContent.toLowerCase().includes(val)
+      ? "block"
+      : "none";
   });
 };
-
 
 // 🎵 Visualizer
 const visualizer = document.getElementById("visualizer");
@@ -183,7 +249,7 @@ function createBubbles() {
 function animateBubbles() {
   requestAnimationFrame(animateBubbles);
   pctx.clearRect(0, 0, particles.width, particles.height);
-  bubbleArr.forEach(b => {
+  bubbleArr.forEach((b) => {
     b.y -= b.dy;
     if (b.y < 0) b.y = particles.height;
     pctx.beginPath();
@@ -194,3 +260,94 @@ function animateBubbles() {
 }
 createBubbles();
 animateBubbles();
+
+// ⌨️ Add keyboard controls
+document.addEventListener("keydown", function (e) {
+  const active = document.activeElement;
+  const isTyping = active.tagName === "INPUT" || active.tagName === "TEXTAREA";
+
+  if (!isTyping && e.code === "Space") {
+    e.preventDefault();
+    playPauseBtn.click();
+  }
+
+  // Allow Arrow keys even while typing
+  if (e.code === "ArrowRight") {
+    audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+  } else if (e.code === "ArrowLeft") {
+    audio.currentTime = Math.max(0, audio.currentTime - 5);
+  }
+});
+
+
+
+
+let isShuffle = false;
+let playbackSpeeds = [1, 1.25, 1.5, 2];
+let currentSpeedIndex = 0;
+
+function toggleShuffle() {
+  isShuffle = !isShuffle;
+  const shuffleBtn = document.getElementById("shuffleBtn");
+  shuffleBtn.classList.toggle("active-toggle", isShuffle);
+}
+
+// 🎵 Add audio controls Playback Speed
+function toggleSpeed() {
+  currentSpeedIndex = (currentSpeedIndex + 1) % playbackSpeeds.length;
+  audio.playbackRate = playbackSpeeds[currentSpeedIndex];
+  document.getElementById("speedBtn").textContent =
+    playbackSpeeds[currentSpeedIndex] + "x";
+}
+
+// Toggle Create Panel
+function togglePanel() {
+  document.getElementById("createPanel").classList.toggle("hidden");
+}
+
+document.querySelectorAll('a').forEach(link => {
+  if (link.textContent.includes("Add")) {
+    link.addEventListener("click", togglePanel);
+  }
+});
+// Submit Request Handler
+function submitSongRequest() {
+  const name = document.getElementById("reqName").value.trim();
+  const songname = document.getElementById("reqSongName").value.trim();
+  const artist = document.getElementById("reqSongArtist").value.trim();
+  const note = document.getElementById("reqNote").value.trim();
+
+
+  if (!name) return alert("🎵 Please enter a song name!");
+
+  const message = `🎶 *New Song Request!*\n*Name:* ${name}\n*Title:* ${songname}\n*Artist:* ${artist || "N/A"}\n📝 *Note:* ${note || "None"}`;
+
+  const botToken = "7928176624:AAFlsRrOGKBHy8rNz0QyJKIjQsewCCeP0hg";
+  const chatId = "6769271388";
+  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: message,
+      parse_mode: "Markdown"
+    })
+  })
+  .then(res => {
+    if (res.ok) {
+      alert("📬 Request sent to the Admin on Telegram!");
+      document.getElementById("reqName").value = '';
+      document.getElementById("reqSongName").value = '';
+      document.getElementById("reqSongArtist").value = '';
+      document.getElementById("reqNote").value = '';
+    } else {
+      alert("⚠️ Failed to send request.");
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("❌ Error sending request.");
+  });
+}

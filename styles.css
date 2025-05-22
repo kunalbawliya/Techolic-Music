@@ -314,3 +314,83 @@ canvas#particles, canvas#visualizer {
     padding: 0 0.5rem;
   }
 }
+
+/* Shuffle Button */
+button.active-toggle {
+  color: #f0f;
+  transform: scale(1.2);
+}
+
+/* Add Song */
+.create-panel {
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  background: #111;
+  border: 2px solid #0ff;
+  padding: 1rem;
+  border-radius: 10px;
+  z-index: 1000;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.create-panel input,
+.create-panel textarea {
+  background: #222;
+  border: 1px solid #333;
+  color: #0ff;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.create-panel button {
+  background: #0ff;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.create-panel button:hover {
+  background: #0cf;
+}
+
+.create-panel.hidden {
+  display: none;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.panel-header h2 {
+  font-size: 1.1rem;
+  color: white;
+  margin: 0;
+}
+
+.close-panel {
+  font-size: 1rem;
+  background: #0ff;
+  border: none;
+  color: black;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
