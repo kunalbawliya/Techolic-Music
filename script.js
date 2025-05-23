@@ -23,6 +23,11 @@ const songs = [
     cover: "covers/On My Way.png",
   },
   {
+    name: "Bulleya - Sultan",
+    src: "songs/Bulleya - Sultan.mp3",
+    cover: "covers/Bulleya - Sultan.png",
+  },
+  {
     name: "Tera Hone Laga Hoon",
     src: "songs/Tera Hone Laga Hoon.mp3",
     cover: "covers/Tera Hone Laga Hoon.png",
@@ -58,6 +63,11 @@ const songs = [
     src: "songs/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.mp3",
     cover: "covers/Tere Bina - Mausam Ikrar ke Do Pal Pyar Ke.png",
   },
+  {
+    name: "Dil Haaraa - Tashan",
+    src: "songs/Dil Haaraa - Tashan.mp3",
+    cover: "covers/Dil Haaraa - Tashan.png",
+  },
   { name: "Ajab Si", src: "songs/Ajab Si.mp3", cover: "covers/Ajab Si.png" },
   { name: "Bin Tere", src: "songs/Bin Tere.mp3", cover: "covers/Bin Tere.png" },
   {
@@ -71,6 +81,11 @@ const songs = [
     cover: "covers/Jugraafiya.png",
   },
   {
+    name: "Love Looks Pretty on You",
+    src: "songs/Love Looks Pretty on You.mp3",
+    cover: "covers/Love Looks Pretty on You.png",
+  },
+  {
     name: "O Rangrez",
     src: "songs/O Rangrez.mp3",
     cover: "covers/O Rangrez.png",
@@ -79,7 +94,7 @@ const songs = [
     name: "Bin Tere Bin",
     src: "songs/Bin Tere Bin.mp3",
     cover: "covers/Bin Tere Bin.png",
-  },
+  },  
 ];
 
 let currentSong = 0,
