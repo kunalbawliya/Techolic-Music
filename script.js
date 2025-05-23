@@ -95,6 +95,11 @@ const songs = [
     src: "songs/Bin Tere Bin.mp3",
     cover: "covers/Bin Tere Bin.png",
   },  
+  {
+    name: "Saibo",
+    src: "songs/Saibo.mp3",
+    cover: "covers/Saibo.png",
+  }, 
 ];
 
 let currentSong = 0,
