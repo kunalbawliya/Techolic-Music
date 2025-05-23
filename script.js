@@ -101,10 +101,12 @@ songs.forEach((song, i) => {
   card.innerHTML = `
     <img src="${song.cover}" alt="${song.name}">
     <p>${song.name}</p>
-    <div class="progress"><span id="bar-${i}"></span></div>`;
+    <div class="progress"><span id="bar-${i}"></span></div>
+    <button class="queue-btn" onclick="event.stopPropagation(); addToQueue(${i})">➕ Queue</button>`;
   card.onclick = () => playSong(i);
   songCards.appendChild(card);
 });
+
 
 function formatTime(sec) {
   const m = Math.floor(sec / 60);
@@ -160,7 +162,8 @@ volumeControl.oninput = () => (audio.volume = volumeControl.value);
 audio.ontimeupdate = () => {
   if (audio.duration && !isNaN(audio.duration)) {
     const progress = (audio.currentTime / audio.duration) * 100;
-    seekBar.value = progress;
+    seekBar.value = Math.floor(progress);
+    seekBar.max = 100;
     seekBar.style.background = `linear-gradient(to right, #0ff ${progress}%, #333 ${progress}%)`;
     currentTimeEl.textContent = formatTime(audio.currentTime);
   }
@@ -173,19 +176,6 @@ audio.addEventListener("loadedmetadata", () => {
 
 seekBar.oninput = () => {
   audio.currentTime = (seekBar.value / 100) * audio.duration;
-};
-
-repeatBtn.onclick = function () {
-  if (repeatMode === "none") {
-    repeatMode = "all";
-    repeatBtn.textContent = "⟲1";
-  } else if (repeatMode === "all") {
-    repeatMode = "one";
-    repeatBtn.textContent = "⟲";
-  } else {
-    repeatMode = "none";
-    repeatBtn.textContent = "⟲";
-  }
 };
 
 audio.onended = () => nextSong();
@@ -279,9 +269,6 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-
-
-
 let isShuffle = false;
 let playbackSpeeds = [1, 1.25, 1.5, 2];
 let currentSpeedIndex = 0;
@@ -351,3 +338,55 @@ function submitSongRequest() {
     alert("❌ Error sending request.");
   });
 }
+
+// Queue Panel
+let queue = [];
+
+function addToQueue(index) {
+  queue.push(index);
+  updateQueueUI();
+}
+
+function clearQueue() {
+  queue = [];
+  updateQueueUI();
+}
+
+function updateQueueUI() {
+  const panel = document.getElementById("queuePanel");
+  const list = document.getElementById("queueList");
+
+  // Always clear existing items
+  list.innerHTML = "";
+
+  if (queue.length === 0) {
+    // 🔒 Hide the entire panel if queue is empty
+    panel.classList.add("hidden");
+    return;
+  }
+
+  // 🧾 If queue has items, show panel and render them
+  panel.classList.remove("hidden");
+
+  queue.forEach((songIndex, i) => {
+    const item = document.createElement("li");
+    item.textContent = `${i + 1}. ${songs[songIndex].name}`;
+    list.appendChild(item);
+  });
+}
+
+
+function playFromQueue() {
+  if (queue.length > 0) {
+    const nextIndex = queue.shift();
+    updateQueueUI();
+    playSong(nextIndex);
+    return true;
+  }
+  return false;
+}
+
+// 🔁 Override audio.onended
+audio.onended = () => {
+  if (!playFromQueue()) nextSong();
+};
