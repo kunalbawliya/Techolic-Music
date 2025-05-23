@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Playback History & Wrapped</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: sans-serif; background: #000; color: #0ff; padding: 2rem; }
+    h1 { color: magenta; }
+    canvas { margin: 2rem 0; background: #111; padding: 1rem; border-radius: 10px; }
+    #historyList { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>🎧 Wrapped: Your Listening Stats</h1>
+  <div>
+    <p id="totalTime"></p>
+    <p id="topSong"></p>
+    <p id="topArtist"></p>
+    <p id="topHour"></p>
+  </div>
+  <canvas id="barChart"></canvas>
+  <ul id="historyList"></ul>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('playbackHistory') || '[]');
+    const historyList = document.getElementById('historyList');
+
+    const totalTime = data.reduce((acc, d) => acc + (d.duration || 0), 0);
+    document.getElementById('totalTime').textContent = `⏱ Total Listening: ${(totalTime/60).toFixed(2)} minutes`;
+
+    const topSong = [...data.reduce((map, { title }) => {
+      map.set(title, (map.get(title) || 0) + 1);
+      return map;
+    }, new Map())].sort((a,b) => b[1] - a[1])[0];
+    document.getElementById('topSong').textContent = `🎵 Top Song: ${topSong?.[0]} (${topSong?.[1]} plays)`;
+
+    const topArtist = [...data.reduce((map, { artist }) => {
+      map.set(artist, (map.get(artist) || 0) + 1);
+      return map;
+    }, new Map())].sort((a,b) => b[1] - a[1])[0];
+    document.getElementById('topArtist').textContent = `🎤 Top Artist: ${topArtist?.[0]} (${topArtist?.[1]} plays)`;
+
+    const topHour = [...data.reduce((map, { playedAt }) => {
+      const hour = new Date(playedAt).getHours();
+      map.set(hour, (map.get(hour) || 0) + 1);
+      return map;
+    }, new Map())].sort((a,b) => b[1] - a[1])[0];
+    document.getElementById('topHour').textContent = `🕓 Favorite Hour: ${topHour?.[0]}:00 (${topHour?.[1]} plays)`;
+
+    data.slice().reverse().forEach(({ title, artist, playedAt }) => {
+      const li = document.createElement('li');
+      li.textContent = `${title} by ${artist} @ ${new Date(playedAt).toLocaleTimeString()}`;
+      historyList.appendChild(li);
+    });
+
+    const dailyTotals = {};
+    data.forEach(({ playedAt, duration }) => {
+      const day = new Date(playedAt).toLocaleDateString();
+      dailyTotals[day] = (dailyTotals[day] || 0) + (duration || 0);
+    });
+
+    const labels = Object.keys(dailyTotals);
+    const values = Object.values(dailyTotals).map(v => (v / 60).toFixed(1));
+
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Listening Time (min)',
+          data: values,
+          backgroundColor: 'cyan'
+        }]
+      },
+      options: {
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  </script>
+</body>
+</html>

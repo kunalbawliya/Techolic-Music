@@ -390,3 +390,34 @@ function playFromQueue() {
 audio.onended = () => {
   if (!playFromQueue()) nextSong();
 };
+
+
+// History
+let logTimer;
+audio.onplay = () => {
+  audioCtx.resume().then(drawBars);
+  if (logTimer) clearTimeout(logTimer);
+
+  logTimer = setTimeout(() => {
+    logSongPlay({
+      id: songs[currentSong].name,
+      title: songs[currentSong].name,
+      artist: 'Unknown',
+      duration: audio.duration || 0,
+      playedAt: new Date().toISOString()
+    });
+  }, 30000); // Only log if 30+ seconds played
+};
+
+function logSongPlay(song) {
+  const history = JSON.parse(localStorage.getItem('playbackHistory') || '[]');
+  history.push({ ...song, playedAt: new Date().toISOString() });
+  localStorage.setItem('playbackHistory', JSON.stringify(history));
+}
+
+logSongPlay({
+  id: songs.name,
+  title: song.name,
+  artist: 'Unknown',
+  duration: audioPlayer.duration || 0
+});
