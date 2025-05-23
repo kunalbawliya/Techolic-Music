@@ -393,6 +393,7 @@ audio.onended = () => {
 
 
 // History
+
 let logTimer;
 audio.onplay = () => {
   audioCtx.resume().then(drawBars);

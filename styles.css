@@ -102,6 +102,7 @@ canvas#visualizer {
   max-height: 80vh;
   overflow-y: auto;
 }
+
 .hidden-menu a {
   color: white;
   text-decoration: none;
