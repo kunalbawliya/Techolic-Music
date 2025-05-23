@@ -2,23 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Playback History & Wrapped</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { font-family: sans-serif; background: #000; color: #0ff; padding: 2rem; }
-    h1 { color: magenta; }
-    canvas { margin: 2rem 0; background: #111; padding: 1rem; border-radius: 10px; }
-    #historyList { margin-top: 1rem; }
+    body {
+      font-family: sans-serif;
+      background: #000;
+      color: #0ff;
+      margin: 0;
+      padding: 5rem 1rem 2rem;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: magenta;
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      background: #111;
+      padding: 1rem;
+      margin: 2rem auto;
+      border-radius: 10px;
+    }
+
+    #historyList {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1rem;
+      list-style: none;
+    }
+
+    #historyList li {
+      border-bottom: 1px solid #333;
+      padding: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .stat-block {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .stat-block p {
+      margin: 0.4rem 0;
+      font-size: 1rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>🎧 Wrapped: Your Listening Stats</h1>
-  <div>
+
+  <div class="stat-block">
     <p id="totalTime"></p>
     <p id="topSong"></p>
     <p id="topArtist"></p>
     <p id="topHour"></p>
   </div>
+
   <canvas id="barChart"></canvas>
   <ul id="historyList"></ul>
 
@@ -26,38 +80,40 @@
     const data = JSON.parse(localStorage.getItem('playbackHistory') || '[]');
     const historyList = document.getElementById('historyList');
 
-    const totalTime = data.reduce((acc, d) => acc + (d.duration || 0), 0);
+    const totalTime = data.reduce((acc, d) => acc + d.duration, 0);
     document.getElementById('totalTime').textContent = `⏱ Total Listening: ${(totalTime/60).toFixed(2)} minutes`;
 
-    const topSong = [...data.reduce((map, { title }) => {
-      map.set(title, (map.get(title) || 0) + 1);
+    const topSong = [...data.reduce((map, song) => {
+      const key = song.title;
+      map.set(key, (map.get(key) || 0) + 1);
       return map;
     }, new Map())].sort((a,b) => b[1] - a[1])[0];
     document.getElementById('topSong').textContent = `🎵 Top Song: ${topSong?.[0]} (${topSong?.[1]} plays)`;
 
-    const topArtist = [...data.reduce((map, { artist }) => {
-      map.set(artist, (map.get(artist) || 0) + 1);
+    const topArtist = [...data.reduce((map, song) => {
+      const key = song.artist;
+      map.set(key, (map.get(key) || 0) + 1);
       return map;
     }, new Map())].sort((a,b) => b[1] - a[1])[0];
     document.getElementById('topArtist').textContent = `🎤 Top Artist: ${topArtist?.[0]} (${topArtist?.[1]} plays)`;
 
-    const topHour = [...data.reduce((map, { playedAt }) => {
-      const hour = new Date(playedAt).getHours();
+    const topHour = [...data.reduce((map, song) => {
+      const hour = new Date(song.playedAt).getHours();
       map.set(hour, (map.get(hour) || 0) + 1);
       return map;
     }, new Map())].sort((a,b) => b[1] - a[1])[0];
     document.getElementById('topHour').textContent = `🕓 Favorite Hour: ${topHour?.[0]}:00 (${topHour?.[1]} plays)`;
 
-    data.slice().reverse().forEach(({ title, artist, playedAt }) => {
+    data.slice().reverse().forEach(s => {
       const li = document.createElement('li');
-      li.textContent = `${title} by ${artist} @ ${new Date(playedAt).toLocaleTimeString()}`;
+      li.textContent = `${s.title} by ${s.artist} @ ${new Date(s.playedAt).toLocaleString()}`;
       historyList.appendChild(li);
     });
 
     const dailyTotals = {};
-    data.forEach(({ playedAt, duration }) => {
-      const day = new Date(playedAt).toLocaleDateString();
-      dailyTotals[day] = (dailyTotals[day] || 0) + (duration || 0);
+    data.forEach(d => {
+      const day = new Date(d.playedAt).toLocaleDateString();
+      dailyTotals[day] = (dailyTotals[day] || 0) + d.duration;
     });
 
     const labels = Object.keys(dailyTotals);
@@ -74,7 +130,9 @@
         }]
       },
       options: {
-        scales: { y: { beginAtZero: true } }
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
     });
   </script>

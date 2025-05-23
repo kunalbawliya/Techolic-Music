@@ -89,7 +89,7 @@ canvas#visualizer {
 }
 .hidden-menu {
   position: fixed;
-  top: 60px;
+  top: 90px;
   right: 10px;
   background: #111;
   border: 1px solid #0ff;
@@ -99,6 +99,8 @@ canvas#visualizer {
   flex-direction: column;
   z-index: 999;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  max-height: 80vh;
+  overflow-y: auto;
 }
 .hidden-menu a {
   color: white;
@@ -489,3 +491,10 @@ button.active-toggle {
     padding: 0 0.5rem;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .content {
+    padding-top: 120px; /* Ensure no overlap from hamburger */
+  }
+}
+
