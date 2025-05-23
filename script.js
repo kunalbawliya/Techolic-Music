@@ -100,6 +100,31 @@ const songs = [
     src: "songs/Saibo.mp3",
     cover: "covers/Saibo.png",
   }, 
+  {
+    name: "Jhoom",
+    src: "songs/Jhoom.mp3",
+    cover: "covers/Jhoom.png",
+  },
+  {
+    name: "Levitating",
+    src: "songs/Levitating.mp3",
+    cover: "covers/Levitating.png",
+  },
+  {
+    name: "Rang Jo Lagyo",
+    src: "songs/Rang Jo Lagyo.mp3",
+    cover: "covers/Rang Jo Lagyo.png",
+  },
+  {
+    name: "Darkhaast",
+    src: "songs/Darkhaast.mp3",
+    cover: "covers/Darkhaast.png",
+  },
+  {
+    name: "Perfect",
+    src: "songs/Perfect.mp3",
+    cover: "covers/Perfect.png",
+  },
 ];
 
 let currentSong = 0,
