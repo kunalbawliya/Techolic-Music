@@ -139,6 +139,9 @@ const currentTimeEl = document.getElementById("currentTime");
 const totalTimeText = document.getElementById("totalTime");
 const repeatBtn = document.getElementById("repeatBtn");
 const songCards = document.getElementById("songCards");
+const toggle = document.getElementById("queueToggle");
+const panel = document.getElementById("queuePanel");
+
 
 songs.forEach((song, i) => {
   const card = document.createElement("div");
@@ -263,7 +266,7 @@ function drawBars() {
 }
 audio.onplay = () => audioCtx.resume().then(drawBars);
 
-// 🎈 Particle Animation
+//Particle Animation
 const particles = document.getElementById("particles");
 const pctx = particles.getContext("2d");
 particles.width = window.innerWidth;
@@ -296,7 +299,7 @@ function animateBubbles() {
 createBubbles();
 animateBubbles();
 
-// ⌨️ Add keyboard controls
+//Add keyboard controls
 document.addEventListener("keydown", function (e) {
   const active = document.activeElement;
   const isTyping = active.tagName === "INPUT" || active.tagName === "TEXTAREA";
@@ -306,7 +309,7 @@ document.addEventListener("keydown", function (e) {
     playPauseBtn.click();
   }
 
-  // Allow Arrow keys even while typing
+  //Allow Arrow keys even while typing
   if (e.code === "ArrowRight") {
     audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
   } else if (e.code === "ArrowLeft") {
@@ -385,11 +388,38 @@ function submitSongRequest() {
 }
 
 // Queue Panel
+
+toggle.addEventListener("mouseenter", () => {
+  panel.classList.remove("hidden");
+  toggle.classList.add("hidden");
+});
+
+panel.addEventListener("mouseleave", () => {
+  panel.classList.add("hidden");
+  toggle.classList.remove("hidden");
+});
+
+// Queue management
 let queue = [];
 
 function addToQueue(index) {
   queue.push(index);
   updateQueueUI();
+
+  const panel = document.getElementById("queuePanel");
+  const toggle = document.getElementById("queueToggle");
+
+  // Show panel immediately
+  panel.classList.remove("hidden");
+  toggle.classList.add("hidden");
+
+  // Auto-hide after 1.5 sec
+  setTimeout(() => {
+    if (queue.length > 0) {
+      panel.classList.add("hidden");
+      toggle.classList.remove("hidden");
+    }
+  }, 1500);
 }
 
 function clearQueue() {
@@ -400,18 +430,15 @@ function clearQueue() {
 function updateQueueUI() {
   const panel = document.getElementById("queuePanel");
   const list = document.getElementById("queueList");
+  const toggle = document.getElementById("queueToggle");
 
-  // Always clear existing items
   list.innerHTML = "";
 
   if (queue.length === 0) {
-    // 🔒 Hide the entire panel if queue is empty
     panel.classList.add("hidden");
+    toggle.classList.add("hidden");
     return;
   }
-
-  // 🧾 If queue has items, show panel and render them
-  panel.classList.remove("hidden");
 
   queue.forEach((songIndex, i) => {
     const item = document.createElement("li");
@@ -426,10 +453,18 @@ function playFromQueue() {
     const nextIndex = queue.shift();
     updateQueueUI();
     playSong(nextIndex);
+
+    // Slide panel in after 2s
+    setTimeout(() => {
+      const panel = document.getElementById("queuePanel");
+      if (queue.length > 0) panel.classList.remove("hidden");
+    }, 2000);
+
     return true;
   }
   return false;
 }
+
 
 // 🔁 Override audio.onended
 audio.onended = () => {

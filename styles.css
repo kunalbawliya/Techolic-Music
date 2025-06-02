@@ -183,7 +183,7 @@ canvas#visualizer {
   background: #444;
   border-radius: 2px;
   outline: none;
-  cursor: none;
+  cursor: pointer;
   accent-color: cyan;
 }
 
@@ -389,6 +389,34 @@ button.active-toggle {
   width: 250px;
   z-index: 999;
   box-shadow: 0 0 15px #0ff;
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.queue-panel.hidden {
+  transform: translateX(300px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.queue-toggle {
+  position: fixed;
+  bottom: 100px;
+  right: 10px;
+  background: #0ff;
+  color: #000;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 998;
+  box-shadow: 0 0 5px cyan;
+  transition: opacity 0.3s ease;
+}
+
+.queue-toggle.hidden {
+  display: none;
 }
 
 .queue-panel h3 {
@@ -432,11 +460,11 @@ button.active-toggle {
   cursor: pointer;
 }
 
-.queue-panel.hidden {
+/* .queue-panel.hidden {
   display: none;
   opacity: 0;
   transition: opacity 0.2s ease-out;
-}
+} */
 
 /* Responsive Design */
 @media screen and (max-width: 820px) {
